@@ -3,7 +3,7 @@ package system;
 import java.net.URL;
 import java.util.Observable;
 
-public class Download extends Observable implements Runnable{
+public class Download extends Observable implements Runnable {
 
     private static final int BUFFER = 1024;
     private URL url;
@@ -18,6 +18,13 @@ public class Download extends Observable implements Runnable{
         }
     }
 
+
+
+
+    private void download() {
+        Thread thread = new Thread(this);
+        thread.start();
+    }
 
     @Override
     public void run() {
