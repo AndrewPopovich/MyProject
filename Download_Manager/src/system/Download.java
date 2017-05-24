@@ -27,6 +27,10 @@ public class Download extends Observable implements Runnable {
         download();
     }
 
+    public String getUrl() {
+        return url.toString();
+    }
+
 
 
 
