@@ -48,6 +48,11 @@ public class Download extends Observable implements Runnable {
         stateChanged();
     }
 
+    public void resume() {
+        status = Statuses.DOWNLOADING;
+        stateChanged();
+        download();
+    }
 
 
 
