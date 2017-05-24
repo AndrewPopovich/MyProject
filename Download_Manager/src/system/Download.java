@@ -54,9 +54,10 @@ public class Download extends Observable implements Runnable {
         download();
     }
 
-
-
-
+    public void cancel(){
+        status = Statuses.CANCELLED;
+        stateChanged();
+    }
 
     private void stateChanged() {
         setChanged();
