@@ -59,6 +59,11 @@ public class Download extends Observable implements Runnable {
         stateChanged();
     }
 
+    private void error(){
+        status = Statuses.ERROR;
+        stateChanged();
+    }
+
     private void stateChanged() {
         setChanged();
         notifyObservers();
