@@ -43,6 +43,11 @@ public class Download extends Observable implements Runnable {
         return status;
     }
 
+    public void pause() {
+        status = Statuses.PAUSED;
+        setChanged();
+    }
+
 
 
 
