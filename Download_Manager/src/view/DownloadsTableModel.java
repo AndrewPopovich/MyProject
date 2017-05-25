@@ -6,6 +6,10 @@ import java.util.Observer;
 
 public class DownloadsTableModel extends AbstractTableModel implements Observer {
 
+    public enum ColumnNames{
+        URL, SIZE, PROGRESS, STATUS
+    }
+
     @Override
     public void update(Observable o, Object arg) {
 
