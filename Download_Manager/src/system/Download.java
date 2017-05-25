@@ -33,6 +33,18 @@ public class Download extends Observable implements Runnable {
 
 
 
+    private HttpURLConnection getConnection() throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestProperty("Range", "bytes=" + downloaded + "-");
+
+        connection.connect();
+
+        checkValidConnection(connection);
+
+        return connection;
+    }
+
     private void checkValidConnection(HttpURLConnection connection) throws IOException {
         int length = connection.getContentLength();
 
