@@ -60,6 +60,24 @@ public class DownloadsTableModel extends AbstractTableModel implements Observer 
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return null;
+        Download download = downloadList.get(rowIndex);
+        Object object = null;
+
+        switch(columnIndex){
+            case 0: object = download.getUrl();
+            break;
+
+            case 1:
+                int size = download.size();
+                object = (size == -1) ? "" : new Integer(size);
+            break;
+
+            case 2: object = download.getProgress();
+            break;
+
+            case 3: object = download.getStatus();
+            break;
+        }
+        return object;
     }
 }
