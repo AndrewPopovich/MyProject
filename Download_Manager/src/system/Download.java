@@ -34,10 +34,10 @@ public class Download extends Observable implements Runnable {
 
     @Override
     public void run() {
-        BufferedInputStream stream;
+        HttpURLConnection connection = getConnection();
 
-        try (RandomAccessFile file = new RandomAccessFile(getFileName(url), "rw")) {
-            HttpURLConnection connection = getConnection();
+        try (RandomAccessFile file = new RandomAccessFile(getFileName(url), "rw");
+             BufferedInputStream stream = new BufferedInputStream(connection.getInputStream())) {
 
             if (size == -1) {
                 size = connection.getContentLength();
@@ -46,12 +46,10 @@ public class Download extends Observable implements Runnable {
 
             file.seek(downloaded);
 
-            stream = new BufferedInputStream(connection.getInputStream());
-
             while (status == Statuses.DOWNLOADING) {
                 int read = stream.read();
 
-                if(read == -1){
+                if (read == -1) {
                     break;
                 }
 
@@ -60,10 +58,12 @@ public class Download extends Observable implements Runnable {
                 stateChanged();
             }
 
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (status == Statuses.DOWNLOADING) {
+                status = Statuses.COMPLETE;
+                stateChanged();
+            }
+        } catch (NullPointerException | IOException e) {
+            error();
         }
     }
 
@@ -79,15 +79,20 @@ public class Download extends Observable implements Runnable {
         return buffer;
     }
 
-    private HttpURLConnection getConnection() throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    private HttpURLConnection getConnection() {
+        HttpURLConnection connection = null;
 
-        connection.setRequestProperty("Range", "bytes=" + downloaded + "-");
+        try {
+            connection = (HttpURLConnection) url.openConnection();
 
-        connection.connect();
+            connection.setRequestProperty("Range", "bytes=" + downloaded + "-");
 
-        checkValidConnection(connection);
+            connection.connect();
 
+            checkValidConnection(connection);
+        } catch (IOException e) {
+            error();
+        }
         return connection;
     }
 
