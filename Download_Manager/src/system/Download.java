@@ -1,14 +1,18 @@
 package system;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Observable;
 
 public class Download extends Observable implements Runnable {
 
-    private static final int BUFFER = 1024;
+    private static final int BUFFER_SIZE = 1024;
     private URL url;
-    private long size;
-    private long downloaded;
+    private int size;
+    private int downloaded;
     private Statuses status;
 
     public enum Statuses {
@@ -27,11 +31,25 @@ public class Download extends Observable implements Runnable {
         download();
     }
 
+
+
+    private void checkValidConnection(HttpURLConnection connection) throws IOException {
+        int length = connection.getContentLength();
+
+        if (connection.getResponseCode() / 100 != 2) {
+            error();
+        }
+
+        if (length < 1) {
+            error();
+        }
+    }
+
     public String getUrl() {
         return url.toString();
     }
 
-    public long size() {
+    public int size() {
         return size;
     }
 
@@ -59,7 +77,7 @@ public class Download extends Observable implements Runnable {
         stateChanged();
     }
 
-    private String getFileName(URL url){
+    private String getFileName(URL url) {
         String fileName = url.getFile();
         return fileName.substring(fileName.lastIndexOf('/') + 1);
     }
@@ -77,10 +95,5 @@ public class Download extends Observable implements Runnable {
     private void download() {
         Thread thread = new Thread(this);
         thread.start();
-    }
-
-    @Override
-    public void run() {
-
     }
 }
