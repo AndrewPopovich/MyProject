@@ -33,6 +33,18 @@ public class Download extends Observable implements Runnable {
 
 
 
+    private byte[] getBufferCorrectSize() {
+        byte[] buffer;
+
+        if (size - downloaded > BUFFER_SIZE) {
+            buffer = new byte[BUFFER_SIZE];
+        } else {
+            buffer = new byte[size - downloaded];
+        }
+
+        return buffer;
+    }
+
     private HttpURLConnection getConnection() throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
