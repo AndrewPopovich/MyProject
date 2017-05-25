@@ -43,6 +43,12 @@ public class DownloadsTableModel extends AbstractTableModel implements Observer 
         return columnNames[i];
     }
 
+    public Class getColumnClass(int i){
+        return columnClasses[i];
+    }
+
+
+
     @Override
     public void update(Observable o, Object arg) {
 
