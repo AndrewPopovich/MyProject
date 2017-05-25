@@ -10,13 +10,19 @@ import java.util.Observer;
 
 public class DownloadsTableModel extends AbstractTableModel implements Observer {
 
-    public enum ColumnNames{
+    public enum ColumnNames {
         URL, SIZE, PROGRESS, STATUS
     }
 
     private static final Class[] columnClasses = {String.class, String.class, JProgressBar.class, String.class};
 
     private ArrayList<Download> downloadList = new ArrayList<>();
+
+    public void addDownload(Download download) {
+        download.addObserver(this);
+
+        downloadList.add(download);
+    }
 
     @Override
     public void update(Observable o, Object arg) {
