@@ -56,11 +56,7 @@ public class Download extends Observable implements Runnable {
                 int read = stream.read(buffer);
 
                 if (read == -1) {
-                    if (size != downloaded) {
-                        continue;
-                    } else {
-                        break;
-                    }
+                    break;
                 }
 
                 file.write(stream.read(buffer, 0, read));
