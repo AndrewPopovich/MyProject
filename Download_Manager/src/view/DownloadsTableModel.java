@@ -30,6 +30,12 @@ public class DownloadsTableModel extends AbstractTableModel implements Observer 
         return downloadList.get(row);
     }
 
+    public void clearDownload(int row){
+        downloadList.remove(row);
+    }
+
+
+
     @Override
     public void update(Observable o, Object arg) {
 
