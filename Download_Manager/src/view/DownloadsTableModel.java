@@ -22,6 +22,12 @@ public class DownloadsTableModel extends AbstractTableModel implements Observer 
         download.addObserver(this);
 
         downloadList.add(download);
+
+        fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
+    }
+
+    public Download getDownload(int row){
+        return downloadList.get(row);
     }
 
     @Override
