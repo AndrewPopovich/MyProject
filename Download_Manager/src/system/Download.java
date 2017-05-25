@@ -49,8 +49,17 @@ public class Download extends Observable implements Runnable {
             stream = new BufferedInputStream(connection.getInputStream());
 
             while (status == Statuses.DOWNLOADING) {
+                int read = stream.read();
 
+                if(read == -1){
+                    break;
+                }
+
+                file.write(stream.read());
+                downloaded += read;
+                stateChanged();
             }
+
 
 
         } catch (IOException e) {
