@@ -53,7 +53,9 @@ public class DownloadsTableModel extends AbstractTableModel implements Observer 
 
     @Override
     public void update(Observable o, Object arg) {
+        int index = downloadList.indexOf(o);
 
+        fireTableCellUpdated(index, index);
     }
 
     @Override
