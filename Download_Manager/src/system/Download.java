@@ -1,5 +1,6 @@
 package system;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
@@ -33,7 +34,7 @@ public class Download extends Observable implements Runnable {
 
     @Override
     public void run() {
-        InputStream stream;
+        BufferedInputStream stream;
 
         try (RandomAccessFile file = new RandomAccessFile(getFileName(url), "rw")) {
             HttpURLConnection connection = getConnection();
@@ -45,7 +46,7 @@ public class Download extends Observable implements Runnable {
 
             file.seek(downloaded);
 
-            stream = connection.getInputStream();
+            stream = new BufferedInputStream(connection.getInputStream());
 
             while (status == Statuses.DOWNLOADING) {
 
