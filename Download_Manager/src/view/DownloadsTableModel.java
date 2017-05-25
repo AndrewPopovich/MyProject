@@ -10,9 +10,7 @@ import java.util.Observer;
 
 public class DownloadsTableModel extends AbstractTableModel implements Observer {
 
-    public enum ColumnNames {
-        URL, SIZE, PROGRESS, STATUS
-    }
+    private static final String[] columnNames = {"URL", "Size", "Progress", "Status"};
 
     private static final Class[] columnClasses = {String.class, String.class, JProgressBar.class, String.class};
 
@@ -32,8 +30,14 @@ public class DownloadsTableModel extends AbstractTableModel implements Observer 
 
     public void clearDownload(int row){
         downloadList.remove(row);
+
+        fireTableRowsDeleted(row, row);
     }
 
+    @Override
+    public int getColumnCount(){
+        return columnNames.length;
+    }
 
 
     @Override
@@ -43,11 +47,6 @@ public class DownloadsTableModel extends AbstractTableModel implements Observer 
 
     @Override
     public int getRowCount() {
-        return 0;
-    }
-
-    @Override
-    public int getColumnCount() {
         return 0;
     }
 
