@@ -4,10 +4,15 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Observable;
 
 public class Download extends Observable implements Runnable {
+
+    public static void main(String[] args) throws MalformedURLException {
+        Download download = new Download(new URL("https://r4---sn-bpb5oxu-vqne.googlevideo.com/videoplayback?source=youtube&ip=130.180.216.101&itag=22&key=yt6&mime=video%2Fmp4&mt=1495731391&mv=m&signature=9D254988AAFB02041250048240D7138A16A94C07.2EE7AAF15873A8A69AA92D50D06D1AC99F9020E1&ms=au&mm=31&mn=sn-bpb5oxu-vqne&pl=20&id=o-AMdIDmssa0oyLcP8Uv1AT-DYTO57YLeD-Zw18vpgTs6t&requiressl=yes&dur=26.076&beids=%5B9466592%5D&sparams=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cexpire&ipbits=0&ratebypass=yes&expire=1495753108&lmt=1492240026642114&initcwndbps=196250&ei=NA0nWavgDofrdK_FqeAD&title=%D0%AD%D1%82%D0%BE%20%D0%BC%D0%BE%D1%8F%20%D0%B3%D1%80%D1%83%D1%88%D0%B0%2C%20%D0%BF%D0%B8%D0%B4%D1%80%D0%B8%D0%BB%D0%B0!%20%D0%9D%D0%B5%D0%BE%D1%81%D0%BF%D0%BE%D1%80%D0%B8%D0%BC%D1%8B%D0%B9%204.%20This%20is%20my%20pear%2C%20asshole!%20(ost)%20Undisputed%204"));
+    }
 
     private static final int BUFFER_SIZE = 1024;
     private URL url;
@@ -46,13 +51,19 @@ public class Download extends Observable implements Runnable {
             file.seek(downloaded);
 
             while (status == Statuses.DOWNLOADING) {
-                int read = stream.read();
+                byte[] buffer = new byte[BUFFER_SIZE];
+
+                int read = stream.read(buffer);
 
                 if (read == -1) {
-                    break;
+                    if (size != downloaded) {
+                        continue;
+                    } else {
+                        break;
+                    }
                 }
 
-                file.write(stream.read());
+                file.write(stream.read(buffer, 0, read));
                 downloaded += read;
                 stateChanged();
             }
@@ -62,6 +73,7 @@ public class Download extends Observable implements Runnable {
                 stateChanged();
             }
         } catch (NullPointerException | IOException e) {
+            e.printStackTrace();
             error();
         }
     }
@@ -141,6 +153,10 @@ public class Download extends Observable implements Runnable {
 
     private String getFileName(URL url) {
         String fileName = url.getFile();
+
+        if (fileName.length() > 200) {
+            fileName = "downloads.mp4";
+        }
         return fileName.substring(fileName.lastIndexOf('/') + 1);
     }
 
