@@ -31,7 +31,31 @@ public class Download extends Observable implements Runnable {
         download();
     }
 
+    @Override
+    public void run() {
+        InputStream stream;
 
+        try (RandomAccessFile file = new RandomAccessFile(getFileName(url), "rw")) {
+            HttpURLConnection connection = getConnection();
+
+            if (size == -1) {
+                size = connection.getContentLength();
+                stateChanged();
+            }
+
+            file.seek(downloaded);
+
+            stream = connection.getInputStream();
+
+            while (status == Statuses.DOWNLOADING) {
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private byte[] getBufferCorrectSize() {
         byte[] buffer;
