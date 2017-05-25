@@ -54,12 +54,17 @@ public class Download extends Observable implements Runnable {
         download();
     }
 
-    public void cancel(){
+    public void cancel() {
         status = Statuses.CANCELLED;
         stateChanged();
     }
 
-    private void error(){
+    private String getFileName(URL url){
+        String fileName = url.getFile();
+        return fileName.substring(fileName.lastIndexOf('/') + 1);
+    }
+
+    private void error() {
         status = Statuses.ERROR;
         stateChanged();
     }
@@ -68,7 +73,6 @@ public class Download extends Observable implements Runnable {
         setChanged();
         notifyObservers();
     }
-
 
     private void download() {
         Thread thread = new Thread(this);
