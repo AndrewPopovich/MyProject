@@ -39,6 +39,13 @@ public class DownloadManager extends JFrame implements Observer {
         updateButtons();
     }
 
+    private void actionResume(){
+        selectDownload.resume();
+        updateButtons();
+    }
+
+
+
     private void updateButtons() {
         if (selectDownload != null) {
             Download.Statuses status = selectDownload.getStatus();
