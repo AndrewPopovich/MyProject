@@ -15,6 +15,8 @@ public class DownloadManager extends JFrame implements Observer {
 
     private DownloadsTableModel tableModel;
 
+    private JTable table;
+
     private JButton pauseButton, resumeButton, cancelButton, clearButton;
 
     private Download selectDownload;
@@ -39,13 +41,21 @@ public class DownloadManager extends JFrame implements Observer {
         updateButtons();
     }
 
-    private void actionResume(){
+    private void actionResume() {
         selectDownload.resume();
         updateButtons();
     }
 
-    private void actionCancel(){
+    private void actionCancel() {
         selectDownload.cancel();
+        updateButtons();
+    }
+
+    private void actionClear() {
+        clearing = true;
+        tableModel.clearDownload(table.getSelectedRow());
+        clearing = false;
+        selectDownload = null;
         updateButtons();
     }
 
