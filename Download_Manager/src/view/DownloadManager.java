@@ -16,6 +16,8 @@ public class DownloadManager extends JFrame implements Observer {
 
     private Download selectDownload;
 
+    private boolean clearing;
+
 
     @Override
     public void update(Observable o, Object arg) {
