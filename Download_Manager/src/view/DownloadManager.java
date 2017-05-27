@@ -4,8 +4,7 @@ import system.Download;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -31,9 +30,23 @@ public class DownloadManager extends JFrame implements Observer {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-
+                actionExit();
             }
         });
+
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        fileMenu.setMnemonic(KeyEvent.VK_F);
+        JMenuItem fileExitMenuItem = new JMenuItem("Exit", KeyEvent.VK_X);
+        fileExitMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionExit();
+            }
+        });
+        fileMenu.add(fileExitMenuItem);
+        menuBar.add(fileMenu);
+        setJMenuBar(menuBar);
     }
 
     private void actionExit() {
