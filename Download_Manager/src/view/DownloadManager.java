@@ -74,6 +74,10 @@ public class DownloadManager extends JFrame implements Observer {
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        ProgressRenderer renderer = new ProgressRenderer(0, 100);
+        renderer.setStringPainted(true);
+        table.setDefaultRenderer(JProgressBar.class, renderer);
+
 
     }
 
