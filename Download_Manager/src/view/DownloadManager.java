@@ -8,7 +8,7 @@ public class DownloadManager extends JFrame implements Observer {
 
     private JTextField addTextField;
 
-
+    private DownloadsTableModel tableModel;
 
 
     @Override
