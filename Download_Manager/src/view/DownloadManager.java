@@ -34,11 +34,16 @@ public class DownloadManager extends JFrame implements Observer {
         });
     }
 
+    private void actionPause() {
+        selectDownload.pause();
+        updateButtons();
+    }
+
     private void updateButtons() {
         if (selectDownload != null) {
             Download.Statuses status = selectDownload.getStatus();
 
-            switch (status){
+            switch (status) {
                 case DOWNLOADING:
                     pauseButton.setEnabled(true);
                     resumeButton.setEnabled(false);
