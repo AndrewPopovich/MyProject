@@ -71,6 +71,10 @@ public class DownloadManager extends JFrame implements Observer {
                 tableSelectionChanged();
             }
         });
+
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+
     }
 
     private void tableSelectionChanged() {
