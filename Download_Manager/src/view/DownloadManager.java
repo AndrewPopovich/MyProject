@@ -57,7 +57,11 @@ public class DownloadManager extends JFrame implements Observer {
                     cancelButton.setEnabled(false);
                     clearButton.setEnabled(true);
                     break;
-
+                default:
+                    pauseButton.setEnabled(false);
+                    resumeButton.setEnabled(false);
+                    cancelButton.setEnabled(false);
+                    clearButton.setEnabled(true);
             }
         }
     }
