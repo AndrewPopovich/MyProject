@@ -239,6 +239,15 @@ public class DownloadManager extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        if (selectDownload != null && selectDownload.equals(o)) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    updateButtons();
+                }
+            });
+        }
     }
+
+
 }
