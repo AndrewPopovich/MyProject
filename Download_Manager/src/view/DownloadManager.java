@@ -68,7 +68,7 @@ public class DownloadManager extends JFrame implements Observer {
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-
+                tableSelectionChanged();
             }
         });
     }
@@ -78,7 +78,7 @@ public class DownloadManager extends JFrame implements Observer {
             selectDownload.deleteObserver(DownloadManager.this);
         }
 
-        if(!clearing && table.getSelectedRow() > -1) {
+        if (!clearing && table.getSelectedRow() > -1) {
             selectDownload = tableModel.getDownload(table.getSelectedRow());
 
             selectDownload.addObserver(DownloadManager.this);
