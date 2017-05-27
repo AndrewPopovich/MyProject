@@ -5,6 +5,7 @@ import system.Download;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -47,6 +48,32 @@ public class DownloadManager extends JFrame implements Observer {
         fileMenu.add(fileExitMenuItem);
         menuBar.add(fileMenu);
         setJMenuBar(menuBar);
+
+        JPanel addPanel = new JPanel();
+        addTextField = new JTextField(30);
+        addPanel.add(addTextField);
+        JButton addButton = new JButton("Add Download");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    private URL verifyUrl(String url) {
+        URL verifiedUrl = null;
+
+        if (!url.toLowerCase().startsWith("http://")) {
+            verifiedUrl = null;
+        }
+
+        try {
+            verifiedUrl = new URL(url);
+        } catch (Exception e) {
+            verifiedUrl = null;
+        }
+        return verifiedUrl;
     }
 
     private void actionExit() {
