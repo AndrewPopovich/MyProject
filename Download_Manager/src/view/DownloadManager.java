@@ -84,6 +84,48 @@ public class DownloadManager extends JFrame implements Observer {
         downloadsPanel.setBorder(BorderFactory.createTitledBorder("Downloads"));
         downloadsPanel.setLayout(new BorderLayout());
         downloadsPanel.add(new JScrollPane(table), BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
+
+        pauseButton = new JButton("Pause");
+        pauseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionPause();
+            }
+        });
+        pauseButton.setEnabled(false);
+        buttonPanel.add(pauseButton);
+
+        resumeButton = new JButton("Resume");
+        resumeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionResume();
+            }
+        });
+        resumeButton.setEnabled(false);
+        buttonPanel.add(resumeButton);
+
+        cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionCancel();
+            }
+        });
+        cancelButton.setEnabled(false);
+        buttonPanel.add(cancelButton);
+
+        clearButton = new JButton("Clear");
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionClear();
+            }
+        });
+        cancelButton.setEnabled(false);
+        buttonPanel.add(clearButton);
     }
 
     private void tableSelectionChanged() {
