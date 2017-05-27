@@ -249,5 +249,14 @@ public class DownloadManager extends JFrame implements Observer {
         }
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                DownloadManager manager = new DownloadManager();
+                manager.setVisible(true);
+            }
+        });
+    }
 
 }
