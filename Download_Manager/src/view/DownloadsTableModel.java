@@ -39,12 +39,12 @@ public class DownloadsTableModel extends AbstractTableModel implements Observer 
         return columnNames.length;
     }
 
-    public String getColumnName(int i) {
-        return columnNames[i];
+    public String getColumnName(int col) {
+        return columnNames[col];
     }
 
-    public Class getColumnClass(int i) {
-        return columnClasses[i];
+    public Class getColumnClass(int col) {
+        return columnClasses[col];
     }
 
     public int getRowCount() {
@@ -63,20 +63,23 @@ public class DownloadsTableModel extends AbstractTableModel implements Observer 
         Download download = downloadList.get(rowIndex);
         Object object = null;
 
-        switch(columnIndex){
-            case 0: object = download.getUrl();
-            break;
+        switch (columnIndex) {
+            case 0:
+                object = download.getUrl();
+                break;
 
             case 1:
                 int size = download.size();
                 object = (size == -1) ? "" : new Integer(size);
-            break;
+                break;
 
-            case 2: object = download.getProgress();
-            break;
+            case 2:
+                object = download.getProgress();
+                break;
 
-            case 3: object = download.getStatus();
-            break;
+            case 3:
+                object = download.getStatus();
+                break;
         }
         return object;
     }

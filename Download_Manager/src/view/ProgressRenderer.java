@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class ProgressRenderer extends JProgressBar implements TableCellRenderer {
 
-    public ProgressRenderer(int min, int max){
+    public ProgressRenderer(int min, int max) {
         super(min, max);
     }
 
