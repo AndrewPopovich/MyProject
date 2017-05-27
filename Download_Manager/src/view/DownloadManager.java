@@ -44,7 +44,10 @@ public class DownloadManager extends JFrame implements Observer {
         updateButtons();
     }
 
-
+    private void actionCancel(){
+        selectDownload.cancel();
+        updateButtons();
+    }
 
     private void updateButtons() {
         if (selectDownload != null) {
