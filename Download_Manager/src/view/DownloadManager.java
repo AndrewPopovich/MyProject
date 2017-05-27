@@ -21,6 +21,8 @@ public class DownloadManager extends JFrame implements Observer {
 
     public DownloadManager() throws HeadlessException {
         setTitle("Download Manager");
+
+        setSize(640, 480);
     }
 
     @Override
