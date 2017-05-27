@@ -3,6 +3,8 @@ package view;
 import system.Download;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
@@ -61,7 +63,27 @@ public class DownloadManager extends JFrame implements Observer {
         });
         addPanel.add(addButton);
 
+        tableModel = new DownloadsTableModel();
+        table = new JTable(tableModel);
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
 
+            }
+        });
+    }
+
+    private void tableSelectionChanged() {
+        if (selectDownload != null) {
+            selectDownload.deleteObserver(DownloadManager.this);
+        }
+
+        if(!clearing && table.getSelectedRow() > -1) {
+            selectDownload = tableModel.getDownload(table.getSelectedRow());
+
+            selectDownload.addObserver(DownloadManager.this);
+            updateButtons();
+        }
     }
 
     private void actionAdd() {
