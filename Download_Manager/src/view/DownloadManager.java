@@ -126,6 +126,11 @@ public class DownloadManager extends JFrame implements Observer {
         });
         cancelButton.setEnabled(false);
         buttonPanel.add(clearButton);
+
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(addPanel, BorderLayout.NORTH);
+        getContentPane().add(downloadsPanel, BorderLayout.CENTER);
+        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private void tableSelectionChanged() {
