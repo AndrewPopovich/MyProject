@@ -80,8 +80,10 @@ public class DownloadManager extends JFrame implements Observer {
 
         table.setRowHeight((int) renderer.getPreferredSize().getHeight());
 
-
-
+        JPanel downloadsPanel = new JPanel();
+        downloadsPanel.setBorder(BorderFactory.createTitledBorder("Downloads"));
+        downloadsPanel.setLayout(new BorderLayout());
+        downloadsPanel.add(new JScrollPane(table), BorderLayout.CENTER);
     }
 
     private void tableSelectionChanged() {
