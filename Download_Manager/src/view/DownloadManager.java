@@ -78,6 +78,9 @@ public class DownloadManager extends JFrame implements Observer {
         renderer.setStringPainted(true);
         table.setDefaultRenderer(JProgressBar.class, renderer);
 
+        table.setRowHeight((int) renderer.getPreferredSize().getHeight());
+
+
 
     }
 
