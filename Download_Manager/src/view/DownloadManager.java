@@ -36,6 +36,10 @@ public class DownloadManager extends JFrame implements Observer {
         });
     }
 
+    private void actionExit() {
+        System.exit(0);
+    }
+
     private void actionPause() {
         selectDownload.pause();
         updateButtons();
