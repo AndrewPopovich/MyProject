@@ -56,15 +56,18 @@ public class DownloadManager extends JFrame implements Observer {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                actionAdd();
             }
         });
+        addPanel.add(addButton);
+
+
     }
 
     private void actionAdd() {
         URL verifiedUrl = verifyUrl(addTextField.getText());
 
-        if(verifiedUrl == null) {
+        if (verifiedUrl == null) {
             JOptionPane.showMessageDialog(this, "Invalid Download URL", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
