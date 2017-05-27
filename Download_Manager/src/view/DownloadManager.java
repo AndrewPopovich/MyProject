@@ -4,6 +4,8 @@ import system.Download;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,6 +25,28 @@ public class DownloadManager extends JFrame implements Observer {
         setTitle("Download Manager");
 
         setSize(640, 480);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+        });
+    }
+
+    private void updateButtons() {
+        if (selectDownload != null) {
+            Download.Statuses status = selectDownload.getStatus();
+
+            switch (status){
+                case DOWNLOADING:
+                    pauseButton.setEnabled(true);
+                    resumeButton.setEnabled(false);
+                    cancelButton.setEnabled(true);
+                    clearButton.setEnabled(false);
+                    break;
+            }
+        }
     }
 
     @Override
