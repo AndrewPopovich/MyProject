@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="MyStockSystem:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="MyStockSystem-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="MyStockSystem:war exploded" />
+    </root>
+  </artifact>
+</component>
